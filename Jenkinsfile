@@ -10,7 +10,7 @@ pipeline {
 		
 		stage('Build Docker Image') {
 			steps {
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'mohamedesamanas', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker build -t mohamedesamanas/udacity_capstone .
 					'''
@@ -20,7 +20,7 @@ pipeline {
 
 		stage('Push Image To Dockerhub') {
 			steps {
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'mohamedesamanas', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 						docker push mohamedesamanas/udacity_capstone
@@ -33,7 +33,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-2', credentials:'capstone_cred') {
 					sh '''
-						kubectl config use-context arn:aws:eks:us-east-2:142977788479:cluster/capstonecluster
+						kubectl config use-context arn:aws:cloudformation:us-east-2:549195752255:stack/eksctl-capstonecluster-cluster/5f8e11c0-2ba0-11eb-b748-06e35090f892
 					'''
 				}
 			}
