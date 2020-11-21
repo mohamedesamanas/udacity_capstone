@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'mohamedesamanas', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
-						sudo -S docker build -t mohamedesamanas/udacity_capstone . <~/home/ubuntu/pass.txt
+						sudo -S docker build -t mohamedesamanas/udacity_capstone . </home/ubuntu/pass.txt
 					'''
 				}
 			}
